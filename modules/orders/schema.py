@@ -8,7 +8,7 @@ class OrderItemCreate(BaseModel):
 
 
 class OrderCreate(BaseModel):
-    items: List[OrderItemCreate]
+    cart_id: int
 
 
 class OrderItemResponse(BaseModel):

@@ -1,56 +1,39 @@
 from sqlalchemy.orm import Session
-from modules.orders.model import Order, OrderItem
+from modules.orders import repository
+from modules.products.model import Product
 
 
-def create_order(db: Session, user_id: int, total_amount: float):
-    order = Order(
-        user_id=user_id,
-        total_amount=total_amount
-    )
-    db.add(order)
+def create_order(db: Session, user_id: int, items):
+    total = 0
+
+    order = repository.create_order_record(db, user_id, 0)
+
+    for item in items:
+        product = db.query(Product).filter(Product.id == item.product_id).first()
+
+        if not product:
+            continue  # hoặc raise error nếu muốn strict
+
+        subtotal = product.price * item.quantity
+        total += subtotal
+
+        repository.add_order_item(
+            db,
+            order.id,
+            product.id,
+            item.quantity,
+            product.price
+        )
+    order.total_amount = total
     db.commit()
     db.refresh(order)
-    return order
-
-
-def add_order_item(
-    db: Session,
-    order_id: int,
-    product_id: int,
-    quantity: int,
-    price: float
-):
-    item = OrderItem(
-        order_id=order_id,
-        product_id=product_id,
-        quantity=quantity,
-        price=price
-    )
-    db.add(item)
-    db.commit()
-    db.refresh(item)
-    return item
-
-
-def get_orders_by_user(db: Session, user_id: int):
-    return db.query(Order).filter(Order.user_id == user_id).all()
-
-
-def get_order_by_id(db: Session, order_id: int):
-    return db.query(Order).filter(Order.id == order_id).first()
-
-
-def get_order_items(db: Session, order_id: int):
-    return db.query(OrderItem).filter(
-        OrderItem.order_id == order_id
-    ).all()
-
-
-def delete_order(db: Session, order_id: int):
-    order = db.query(Order).filter(Order.id == order_id).first()
-
-    if order:
-        db.delete(order)
-        db.commit()
 
     return order
+
+
+def get_orders(db: Session, user_id: int):
+    return repository.get_orders_by_user(db, user_id)
+
+
+def get_order(db: Session, order_id: int):
+    return repository.get_order_by_id(db, order_id)
