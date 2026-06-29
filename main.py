@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.modules.users.router import router as user_routers
-from app.modules.users.admin_router import router as admin_user_routers
-from app.modules.products.router import router as product_routers
-from app.modules.categories.router import router as category_routers
-from app.modules.carts.router import router as cart_routers
-from app.modules.orders.router import router as order_routers
-from app.core.database import Base, engine
+from modules.users.router import router as user_routers
+from modules.users.admin_router import router as admin_user_routers
+from modules.products.router import router as product_routers
+from modules.categories.router import router as category_routers
+from modules.carts.router import router as cart_routers
+from modules.orders.router import router as order_routers
+from core.database import Base, engine
 
 
 
@@ -14,7 +14,7 @@ app = FastAPI(
     title="Mini E-commerce API"
 )
 
-app.add_middleware(
+add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -22,24 +22,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
+@on_event("startup")
 def startup():
-    import app.modules.users.model
-    import app.modules.products.model
-    import app.modules.carts.model
-    import app.modules.categories.model
-    import app.modules.orders.model
+    import modules.users.model
+    import modules.products.model
+    import modules.carts.model
+    import modules.categories.model
+    import modules.orders.model
     Base.metadata.create_all(bind=engine)
 
-@app.get("/")
+@get("/")
 def root():
     return {
         "message": "Mini E-commerce API"
     }
 
-app.include_router(user_routers)
-app.include_router(admin_user_routers)
-app.include_router(product_routers)
-app.include_router(category_routers)
-app.include_router(cart_routers)
-app.include_router(order_routers)
+include_router(user_routers)
+include_router(admin_user_routers)
+include_router(product_routers)
+include_router(category_routers)
+include_router(cart_routers)
+include_router(order_routers)

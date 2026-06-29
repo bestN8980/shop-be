@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from app.dependencies.database import SessionLocal
-from app.modules.users.model import User
-from app.core.security import hash_password
+from dependencies.database import SessionLocal
+from modules.users.model import User
+from core.security import hash_password
 
 
 def create_admin(db: Session):

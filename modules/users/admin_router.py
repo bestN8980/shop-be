@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.dependencies.database import get_db
-from app.dependencies.rbac import require_role
-from app.core.enums import UserRole
+from dependencies.database import get_db
+from dependencies.rbac import require_role
+from core.enums import UserRole
 
-from app.modules.users.service import delete_user_service
-from app.modules.users.repository import get_all_users
-from app.modules.users.schema import Message, UserResponse
+from modules.users.service import delete_user_service
+from modules.users.repository import get_all_users
+from modules.users.schema import Message, UserResponse
 
-from app.modules.users.service import create_admin_service
+from modules.users.service import create_admin_service
 
 router = APIRouter(
     prefix="/admin/users",

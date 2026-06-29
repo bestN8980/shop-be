@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.modules.orders import repository
-from app.modules.products.model import Product
+from modules.orders import repository
+from modules.products.model import Product
 
 
 def create_order(db: Session, user_id: int, data):

@@ -1,8 +1,8 @@
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
-from app.dependencies.database import get_db
-from app.core.security import decode_access_token
-from app.modules.users.repository import get_user_by_id
+from dependencies.database import get_db
+from core.security import decode_access_token
+from modules.users.repository import get_user_by_id
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
 def get_current_user(db = Depends(get_db), token:str= Depends(oauth2_scheme)):

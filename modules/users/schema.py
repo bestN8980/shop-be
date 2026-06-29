@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from datetime import datetime
-from app.core.enums import UserRole
+from core.enums import UserRole
 
 class Message(BaseModel):
     message: str

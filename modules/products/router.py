@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.dependencies.database import get_db
-from app.modules.products.service import create_product_service, update_product_service, delete_product_service, get_all_product_service
-from app.modules.products.schema import ProductCreate, ProductResponse, ProductUpdate
-from app.dependencies.rbac import require_role
-from app.core.enums import UserRole
+from dependencies.database import get_db
+from modules.products.service import create_product_service, update_product_service, delete_product_service, get_all_product_service
+from modules.products.schema import ProductCreate, ProductResponse, ProductUpdate
+from dependencies.rbac import require_role
+from core.enums import UserRole
 
 router = APIRouter(prefix="/products", tags=["Products"])
 

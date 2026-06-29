@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Boolean
 from sqlalchemy.sql import func
-from app.core.database import Base
+from core.database import Base
 from sqlalchemy import Enum
 
-from app.core.enums import UserRole
+from core.enums import UserRole
 
 class User(Base):
 

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.modules.categories import repository
-from app.modules.categories.schema import (
+from modules.categories import repository
+from modules.categories.schema import (
     CategoryCreate,
     CategoryUpdate
 )

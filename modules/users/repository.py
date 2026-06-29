@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.modules.users.model import User
+from modules.users.model import User
 
 def get_all_users(db: Session):
     return db.query(User).filter(User.is_deleted == False).all()

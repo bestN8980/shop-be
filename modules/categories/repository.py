@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.modules.categories.model import Category
+from modules.categories.model import Category
 
 def get_all_categories(db: Session):
     return db.query(Category).all()
