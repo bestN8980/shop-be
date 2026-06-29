@@ -12,19 +12,21 @@ def get_or_create_cart(db: Session, user_id: int):
     return cart
 
 
-def add_to_cart(db, cart, product_id, quantity):
+def add_to_cart(db, user_id, product_id, quantity):
     product = db.query(Product).filter(Product.id == product_id).first()
 
-    if product.stock < quantity:
-        raise HTTPException(status_code=400, detail="Out of stock")
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
+    cart = repository.get_cart_by_user(db, user_id)
+
+    if not cart:
+        cart = repository.create_cart(db, user_id)
 
     item = CartItem(
-        cart_id=cart.id,
+        cart_id=cart.id,   # ✅ OK
         product_id=product_id,
         quantity=quantity,
-        price=product.price   # 💥 BẮT BUỘC
+        price=product.price
     )
 
     db.add(item)
