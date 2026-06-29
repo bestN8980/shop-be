@@ -14,7 +14,7 @@ app = FastAPI(
     title="Mini E-commerce API"
 )
 
-add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -22,7 +22,7 @@ add_middleware(
     allow_headers=["*"],
 )
 
-@on_event("startup")
+@app.on_event("startup")
 def startup():
     import modules.users.model
     import modules.products.model
@@ -31,15 +31,15 @@ def startup():
     import modules.orders.model
     Base.metadata.create_all(bind=engine)
 
-@get("/")
+@app.get("/")
 def root():
     return {
         "message": "Mini E-commerce API"
     }
 
-include_router(user_routers)
-include_router(admin_user_routers)
-include_router(product_routers)
-include_router(category_routers)
-include_router(cart_routers)
-include_router(order_routers)
+app.include_router(user_routers)
+app.include_router(admin_user_routers)
+app.include_router(product_routers)
+app.include_router(category_routers)
+app.include_router(cart_routers)
+app.include_router(order_routers)
