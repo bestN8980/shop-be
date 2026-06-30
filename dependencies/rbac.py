@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, Request
-from core.enums import UserRole
-from dependencies.auth import get_current_user
-from modules.users.model import User
+from app.core.enums import UserRole
+from app.dependencies.auth import get_current_user
+from app.modules.users.model import User
 
 #closure + DI
 def require_role(allowed_roles: list[UserRole]): #create config

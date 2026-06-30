@@ -1,9 +1,9 @@
-from modules.users.repository import get_user_by_email, create_user, update_user, delete_user
+from app.modules.users.repository import get_user_by_email, create_user, update_user, delete_user
 from sqlalchemy.orm import Session
-from modules.users.schema import UserResponse, Token, ChangePassword, UserUpdate
+from app.modules.users.schema import UserResponse, Token, ChangePassword, UserUpdate
 from fastapi import HTTPException
-from core.security import hash_password, verify_password, create_access_token
-from modules.users.model import User, UserRole
+from app.core.security import hash_password, verify_password, create_access_token
+from app.modules.users.model import User, UserRole
 
 def register_user(db:Session, user)->UserResponse:
     existing_user = get_user_by_email(db, user.email)

@@ -1,8 +1,8 @@
-from modules.products.repository import get_product_by_category_id,get_product_by_id, create_product, delete_product, update_product, get_all_product, get_product_by_name
+from app.modules.products.repository import get_product_by_category_id,get_product_by_id, create_product, delete_product, update_product, get_all_product, get_product_by_name
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from modules.products.schema import ProductCreate, ProductResponse, ProductUpdate, Message
-from modules.products.model import Product
+from app.modules.products.schema import ProductCreate, ProductResponse, ProductUpdate, Message
+from app.modules.products.model import Product
 
 def create_product_service(db: Session, product:ProductCreate)->ProductResponse:
     existing = get_product_by_name(db, product.name)

@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
-from modules.users.service import register_user, login_user, change_password, update_profile, delete_user_service
+from app.modules.users.service import register_user, login_user, change_password, update_profile, delete_user_service
 from sqlalchemy.orm import Session
-from dependencies.database import get_db
-from modules.users.schema import UserCreate, UserResponse, UserLogin, UserUpdate, ChangePassword, Token, Message
-from dependencies.auth import get_current_user
-from modules.users.model import User
-from dependencies.rbac import require_role
-from core.enums import UserRole
-from modules.users.repository import get_all_users
+from app.dependencies.database import get_db
+from app.modules.users.schema import UserCreate, UserResponse, UserLogin, UserUpdate, ChangePassword, Token, Message
+from app.dependencies.auth import get_current_user
+from app.modules.users.model import User
+from app.dependencies.rbac import require_role
+from app.core.enums import UserRole
+from app.modules.users.repository import get_all_users
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

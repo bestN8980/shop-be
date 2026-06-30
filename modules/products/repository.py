@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from modules.products.model import Product
+from app.modules.products.model import Product
 
 def get_all_product(db: Session):
     return db.query(Product).filter(Product.is_deleted == False).all()

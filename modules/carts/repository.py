@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from modules.carts.model import Cart, CartItem
-from modules.products.model import Product
+from app.modules.carts.model import Cart, CartItem
+from app.modules.products.model import Product
 
 def get_cart_by_user(db: Session, user_id: int):
     return db.query(Cart).filter(Cart.user_id == user_id).first()

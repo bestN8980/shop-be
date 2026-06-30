@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from modules.users.router import router as user_routers
-from modules.users.admin_router import router as admin_user_routers
-from modules.products.router import router as product_routers
-from modules.categories.router import router as category_routers
-from modules.carts.router import router as cart_routers
-from modules.orders.router import router as order_routers
-from core.database import Base, engine
+from app.modules.users.router import router as user_routers
+from app.modules.users.admin_router import router as admin_user_routers
+from app.modules.products.router import router as product_routers
+from app.modules.categories.router import router as category_routers
+from app.modules.carts.router import router as cart_routers
+from app.modules.orders.router import router as order_routers
+from app.core.database import Base, engine
 
 
 
@@ -17,6 +17,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:5173",
         "https://shop-fe.netlify.app"
     ],
     allow_credentials=True,
@@ -26,11 +27,11 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup():
-    import modules.users.model
-    import modules.products.model
-    import modules.carts.model
-    import modules.categories.model
-    import modules.orders.model
+    import app.modules.users.model
+    import app.modules.products.model
+    import app.modules.carts.model
+    import app.modules.categories.model
+    import app.modules.orders.model
     Base.metadata.create_all(bind=engine)
 
 @app.get("/")

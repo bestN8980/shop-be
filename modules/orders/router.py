@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from dependencies.database import get_db
-from dependencies.auth import get_current_user
+from app.dependencies.database import get_db
+from app.dependencies.auth import get_current_user
 
-from modules.orders import service, schema
-from modules.orders.schema import OrderCreate
-from modules.users.model import User
+from app.modules.orders import service, schema
+from app.modules.orders.schema import OrderCreate
+from app.modules.users.model import User
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
@@ -17,7 +17,7 @@ def create_order_route(
     db: Session = Depends(get_db),
     user = Depends(get_current_user)
 ):
-    return service.create_order(db, user.id, data.items)
+    return service.create_order(db, user.id, data.cart_id)
 
 
 @router.get("/")
